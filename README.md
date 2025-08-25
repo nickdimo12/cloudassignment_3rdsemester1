@@ -1,6 +1,6 @@
 CloudLaunch Project
 
-This project sets up a simple AWS cloud environment with a **static website** hosted on S3 and a secure **VPC design** for future expansion.
+This project sets up a simple AWS cloud environment with a static website hosted on S3 and a secure VPC design for future expansion.
 
 ---
 
@@ -21,7 +21,7 @@ Static Website Link
 
 
 
-[CloudFront URL](d3vqt2smj80gim.cloudfront.net)
+[CloudFront URL](http://d3vqt2smj80gim.cloudfront.net)
 
 ---
 
@@ -90,4 +90,5 @@ Designed a secure, logically separated **VPC** named `cloudlaunch-vpc` (`10.0.0.
 Console sign-in URL
 
 https://073186739637.signin.aws.amazon.com/console
+Password:Lipse255@
 
