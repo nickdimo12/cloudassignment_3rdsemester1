@@ -90,5 +90,6 @@ Designed a secure, logically separated **VPC** named `cloudlaunch-vpc` (`10.0.0.
 Console sign-in URL
 
 https://073186739637.signin.aws.amazon.com/console
+Username:cloudlaunch-user
 Password:Lipse255@
 
