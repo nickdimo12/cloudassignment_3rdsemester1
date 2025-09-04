@@ -1,31 +1,29 @@
-CloudLaunch Project
+# CloudLaunch Project
 
-This project sets up a simple AWS cloud environment with a static website hosted on S3 and a secure VPC design for future expansion.
+This project sets up a simple AWS cloud environment with a **static website** hosted on S3 and a secure **VPC design** for future expansion.
 
 ---
 
- Task 1: S3 Website Hosting & IAM Access
+##  Task 1: S3 Website Hosting & IAM Access
 - Created **two S3 buckets**:
-  - `cloudlaunch-privatetest1`: hosts the static website (`index.html`).
-  - `cloudlaunch-public-cloudassignment1`: stores private files (only accessible via IAM).
+  - `cloudlaunch-public`: hosts the static website (`index.html`).
+  - `cloudlaunch-private`: stores private files (only accessible via IAM).
 - Configured **S3 Static Website Hosting** on the public bucket.
-- Enabled public access only for cloudlaunch-public-cloudassignment1` using a bucket policy.
-- Kept `cloudlaunch-privatetest1` restricted (no public access).
+- Enabled public access only for `cloudlaunch-public` using a bucket policy.
+- Kept `cloudlaunch-private` restricted (no public access).
 - Created IAM policies:
   - **Admin Policy**: full access to both buckets.
-  - **Read-Only Policy**: can only `GetObject` from the private bucket.
+  - **Custom Read Policy**: a limited policy allowing only bucket listing and metadata lookup.
 
-Static Website Link
-[S3 Website Endpoint](http://cloudlaunch-public-cloudassignment1.s3-website-eu-west-1.amazonaws.com/)
-
-
+###  Static Website Link
+[S3 Website Endpoint](http://cloudlaunch-public.s3-website-us-east-1.amazonaws.com)
 
 
 [CloudFront URL](http://d3vqt2smj80gim.cloudfront.net)
 
 ---
 
-Task 2: VPC Design
+##  Task 2: VPC Design
 Designed a secure, logically separated **VPC** named `cloudlaunch-vpc` (`10.0.0.0/16`).
 
 - **Subnets**:
@@ -46,24 +44,22 @@ Designed a secure, logically separated **VPC** named `cloudlaunch-vpc` (`10.0.0.
   - `cloudlaunch-db-sg`: Allows MySQL (3306) only from App subnet.
 
 - **IAM Permissions**:
-  - Created IAM user `cloudlaunch-user` with **read-only permissions** to VPC and its resources.
+  - Created IAM user `cloudlaunch-user` with a **custom read-only policy** allowing only bucket listing and location metadata lookup.
 
 ---
 
- IAM Policy for `cloudlaunch-user`
+## Custom IAM Policy for `cloudlaunch-user`
 
 ```json
 {
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "AllowListBuckets",
       "Effect": "Allow",
       "Action": [
-        "ec2:DescribeVpcs",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeRouteTables",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeInternetGateways"
+        "s3:ListAllMyBuckets",
+        "s3:GetBucketLocation"
       ],
       "Resource": "*"
     }
@@ -73,17 +69,11 @@ Designed a secure, logically separated **VPC** named `cloudlaunch-vpc` (`10.0.0.
 
 ---
 
-
-
-
-
-
- Summary
+##  Summary
 - Public static site available via S3.
-- Cloudfront configured
 - Private file storage is IAM-restricted.
 - Secure VPC network created for future expansion.
-- IAM controls implemented for least-privilege access.
+- IAM controls implemented with a **custom limited-access policy**.
 
 
 
